@@ -9,7 +9,7 @@ Add this to your application's `shard.yml`:
 
 ```yaml
 dependencies:
-  cron_parser:
+  cron_scheduler:
     github: kostya/cron_scheduler
 ```
 
