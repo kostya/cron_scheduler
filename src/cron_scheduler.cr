@@ -1,5 +1,5 @@
-require "./cron_scheduler/*"
+require "cron_parser"
 
 module CronScheduler
-  # TODO Put your code here
+  VERSION = "0.1.0"
 end
