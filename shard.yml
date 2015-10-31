@@ -1,0 +1,11 @@
+name: cron_scheduler
+version: 0.1.0
+
+authors:
+  - Konstantin Makarchev
+
+dependencies:
+  cron_parser:
+    github: kostya/cron_parser
+
+license: MIT
