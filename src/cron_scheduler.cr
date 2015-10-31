@@ -1,5 +1,34 @@
 require "cron_parser"
 
-module CronScheduler
+class CronScheduler
   VERSION = "0.1.0"
+
+  @@patterns = {} of String => {CronParser, ->}
+
+  def self.patterns
+    @@patterns
+  end
+
+  def self.define(&block)
+    with CronScheduler yield
+  end
+
+  def self.add(pattern, name = nil, &block : ->)
+    parser = CronParser.new(pattern)
+    @@patterns[(name || pattern).to_s] = {parser, block}
+
+    spawn do
+      loop do
+        sleep(parser.next - Time.now)
+        spawn { block.call }
+      end
+    end
+  end
+
+  def self.stats
+    @@patterns.map do |k, v|
+      parser = v[0]
+      {:name => k, :next_execution_at => parser.next, :sleeping_for => (parser.next - Time.now).to_f}
+    end
+  end
 end

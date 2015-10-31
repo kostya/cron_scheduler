@@ -1,9 +1,14 @@
 require "./spec_helper"
 
 describe CronScheduler do
-  # TODO: Write tests
+  it "should define jobs" do
+    CronScheduler.define do
+      add("*/1 * * * *") { puts "every 1 minute" }
+      add("*/5 20-24 * * *") { puts "every 5 minute between 20-24 hours" }
+    end
+  end
 
-  it "works" do
-    false.should eq(true)
+  it "custom add job" do
+    CronScheduler.add("*/1 * * * *") { puts "every 1 minute" }
   end
 end
