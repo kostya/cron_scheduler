@@ -1,6 +1,6 @@
 /doc/
 /libs/
-/.crystal/
+.crystal
 /.shards/
 
 

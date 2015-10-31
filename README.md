@@ -1,6 +1,6 @@
-# cron_scheduler
+# CronScheduler
 
-TODO: Write a description here
+Crystal language simple job scheduler with crontab patterns.
 
 ## Installation
 
@@ -9,8 +9,8 @@ Add this to your application's `shard.yml`:
 
 ```yaml
 dependencies:
-  cron_scheduler:
-    github: [your-github-name]/cron_scheduler
+  cron_parser:
+    github: kostya/cron_scheduler
 ```
 
 
@@ -19,23 +19,18 @@ dependencies:
 
 ```crystal
 require "cron_scheduler"
+require "logger"
+
+L = Logger.new STDOUT
+
+CronScheduler.define do
+  add("*/1 * * * *") { L.info "every 1 minute" }
+  add("*/5 20-24 * * *") { L.info "every 5 minute between 20-24 hours" }
+  add("* */1 * * *") { L.info "every 1 hours" }
+  add("45 * * * *") { L.info "every hour at :45" }
+  add("* * * * SUN") { L.info "every 1 minute in sunday" }
+end
+
+sleep
 ```
 
-
-TODO: Write usage instructions here
-
-## Development
-
-TODO: Write development instructions here
-
-## Contributing
-
-1. Fork it ( https://github.com/[your-github-name]/cron_scheduler/fork )
-2. Create your feature branch (git checkout -b my-new-feature)
-3. Commit your changes (git commit -am 'Add some feature')
-4. Push to the branch (git push origin my-new-feature)
-5. Create a new Pull Request
-
-## Contributors
-
-- [[your-github-name]](https://github.com/[your-github-name]) 'Konstantin Makarchev' - creator, maintainer
