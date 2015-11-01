@@ -19,7 +19,9 @@ class CronScheduler
 
     spawn do
       loop do
-        sleep(parser.next - Time.now)
+        now = Time.now
+        nxt = parser.next(now)
+        sleep(nxt - now)
         spawn { block.call }
       end
     end
