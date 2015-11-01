@@ -17,13 +17,16 @@ class CronScheduler
     parser = CronParser.new(pattern)
     @@patterns[(name || pattern).to_s] = {parser, block}
 
+    prev_nxt = Time.now - 1.minute
+
     spawn do
       loop do
         now = Time.now
-        nxt = parser.next(now)
+        nxt, nxt_failsafe = parser.next(now, 2)
+        nxt = nxt_failsafe if nxt == prev_nxt
+        prev_nxt = nxt
         sleep(nxt - now)
         spawn { block.call }
-        sleep(0.0001)
       end
     end
   end

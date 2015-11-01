@@ -15,7 +15,8 @@ describe CronScheduler do
   it "run the jobs" do
     x = [] of Time
     CronScheduler.at("* * * * * *") { x << Time.now }
-    sleep 2.1
-    x.size.should eq(2)
+    sleep 2.5
+    x.size.should be >= 2
+    x.size.should be <= 3
   end
 end
