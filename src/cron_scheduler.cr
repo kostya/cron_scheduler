@@ -21,8 +21,8 @@ class CronScheduler
       prev_nxt = Time.now - 1.minute
       loop do
         now = Time.now
-        nxt, nxt_failsafe = parser.next(now, 2)
-        nxt = nxt_failsafe if nxt == prev_nxt
+        nxt = parser.next(now)
+        nxt = parser.next(nxt) if nxt == prev_nxt
         prev_nxt = nxt
         sleep(nxt - now)
         spawn { block.call }
