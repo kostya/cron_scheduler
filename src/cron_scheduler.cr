@@ -23,6 +23,7 @@ class CronScheduler
         nxt = parser.next(now)
         sleep(nxt - now)
         spawn { block.call }
+        sleep(0.0001)
       end
     end
   end
