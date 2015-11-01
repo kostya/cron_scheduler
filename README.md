@@ -31,6 +31,7 @@ CronScheduler.define do
   at("* * * * SUN") { L.info "every 1 minute in sunday" }
 
   # when 6 tokens, first parsed as seconds
+  at("*/3 * * * * *") { L.info "every 3.seconds" }
   at("20-45/5 * * * * *") { L.info "every 5.seconds between 20-45" }
 end
 
