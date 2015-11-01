@@ -17,9 +17,8 @@ class CronScheduler
     parser = CronParser.new(pattern)
     @@patterns[(name || pattern).to_s] = {parser, block}
 
-    prev_nxt = Time.now - 1.minute
-
     spawn do
+      prev_nxt = Time.now - 1.minute
       loop do
         now = Time.now
         nxt, nxt_failsafe = parser.next(now, 2)
