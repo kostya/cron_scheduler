@@ -13,7 +13,7 @@ class CronScheduler
     with CronScheduler yield
   end
 
-  def self.add(pattern, name = nil, &block : ->)
+  def self.at(pattern, name = nil, &block : ->)
     parser = CronParser.new(pattern)
     @@patterns[(name || pattern).to_s] = {parser, block}
 
