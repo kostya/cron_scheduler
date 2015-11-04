@@ -19,4 +19,11 @@ describe CronScheduler do
     x.size.should be >= 2
     x.size.should be <= 3
   end
+
+  it "stats" do
+    CronScheduler.at("* * * * * *") { }
+    s = CronScheduler.stats
+    x = s.find { |c| c[:name] == "* * * * * *" }.not_nil!
+    (x[:sleeping_for] as Float64).should be <= 1.0
+  end
 end

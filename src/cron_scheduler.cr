@@ -3,19 +3,23 @@ require "cron_parser"
 class CronScheduler
   VERSION = "0.1.0"
 
-  @@patterns = {} of String => {CronParser, ->}
+  @@patterns = {} of String => CronParser
 
   def self.patterns
     @@patterns
   end
 
+  def self.clear
+    @@patterns.clear
+  end
+
   def self.define(&block)
-    with CronScheduler yield
+    with self yield
   end
 
   def self.at(pattern, name = nil, &block : ->)
     parser = CronParser.new(pattern)
-    @@patterns[(name || pattern).to_s] = {parser, block}
+    @@patterns[(name || pattern).to_s] = parser
 
     spawn do
       prev_nxt = Time.now - 1.minute
@@ -32,8 +36,8 @@ class CronScheduler
 
   def self.stats
     @@patterns.map do |k, v|
-      parser = v[0]
-      {:name => k, :next_execution_at => parser.next, :sleeping_for => (parser.next - Time.now).to_f}
+      nxt = v.next
+      {:name => k, :next_execution_at => nxt, :sleeping_for => (nxt - Time.now).to_f}
     end
   end
 end
