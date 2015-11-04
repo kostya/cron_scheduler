@@ -17,6 +17,7 @@ CronScheduler.define do
 
   at("*/3 * * * * *") { L.info "every 3.seconds" }
   at("20-45/5 * * * * *") { L.info "every 5.seconds between 20-45" }
+  at("11,22,33,44-60/2 * * * * *") { L.info "every 11,22,33,44-60/2 seconds" }
 end
 
 L.info "Scheduler started"
