@@ -24,6 +24,6 @@ describe CronScheduler do
     CronScheduler.at("* * * * * *") { }
     s = CronScheduler.stats
     x = s.find { |c| c[:name] == "* * * * * *" }.not_nil!
-    (x[:sleeping_for] as Float64).should be <= 1.0
+    (x[:sleeping_for].as(Float64)).should be <= 1.0
   end
 end
