@@ -14,7 +14,7 @@ describe CronScheduler do
 
   it "run the jobs" do
     x = [] of Time
-    CronScheduler.at("* * * * * *") { x << Time.now }
+    CronScheduler.at("* * * * * *") { x << Time.local }
     sleep 2.5
     x.size.should be >= 2
     x.size.should be <= 3
