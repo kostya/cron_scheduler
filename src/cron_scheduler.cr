@@ -1,7 +1,7 @@
 require "cron_parser"
 
 class CronScheduler
-  VERSION = "0.3.0"
+  VERSION = "0.4.0"
 
   @@patterns = {} of String => CronParser
 
