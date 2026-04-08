@@ -26,6 +26,7 @@ class CronScheduler
       loop do
         now = Time.local
         nxt = parser.next(now)
+        nxt = parser.next(nxt) if nxt <= now
         nxt = parser.next(nxt) if nxt == prev_nxt
         prev_nxt = nxt
         sleep(nxt - now)
